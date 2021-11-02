@@ -11,14 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wordsapp.databinding.FragmentWordListBinding
 
 class WordListFragment : Fragment() {
+    private lateinit var letterId:String
     companion object{
         const val LETTER = "letter"
         const val SEARCH_PREFIX = "https://www.google.com/search?q="
 
     }
+
     var _binding :FragmentWordListBinding?=null
     val binding get() = _binding!!
     lateinit var recycler_view: RecyclerView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let{
+            letterId=it.getString(LETTER).toString()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +46,7 @@ class WordListFragment : Fragment() {
         For now, refer to activity.intent to get the extras.
 */
         val letter= activity?.intent?.extras?.getString(LETTER).toString()
-        recycler_view.adapter=WordAdapter(context,letter)
+        recycler_view.adapter=WordAdapter(context,letterId)
 
         recycler_view.addItemDecoration(
             DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
